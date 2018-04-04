@@ -1,16 +1,18 @@
 #pragma once
+#include <thread>
 #include <mutex>
 #include <vector>
+#include <algorithm>
 using namespace std;
+
 class Hamster
 {
 	static const int size = 5;
-	static vector<vector<int>> *table = new vector<vector<int>>(5, vector<int>(5, 0));// (5, vector<int>(5, 0));
-	static mutex mu_01;
 	static once_flag flag_01;
 	int id, x, y;
 public:
-	Hamster(int x, int y, int id);
+	mutex* mu01 = nullptr;
+	Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut);
 	bool FillWithZeros();
 	bool Move();
 	~Hamster();
