@@ -11,10 +11,11 @@ int main()
 
 	std::cout << "SO2Projekt starting." << std::endl;
 
+	mutex mut;
 	vector<vector<int>> table(5, vector<int>(5, 0));
 
-	Hamster hamster(2, 3, 5, table);
-	Hamster hamster2(3, 2, 6, table);
+	Hamster hamster(2, 3, 5, table, mut);
+	Hamster hamster2(3, 2, 6, table, mut);
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -36,17 +37,22 @@ int main()
 		
 	}
 
-	hamster.Move(table);
-	hamster2.Move(table);
+	//hamster.Move(table);
+	//hamster2.Move(table);
 	
-	for (int i = 0; i < 5; i++)
+	/*for (int i = 0; i < 5; i++)
 	{
 		for (int j = 0; j < 5; j++)
 		{
 			cout << table[i][j] << " ";
 		}
 		cout << endl;
-	}
+	}*/
+
+	t2.join();
+	t1.join();
+	
+
 
 	system("PAUSE");
 	return 0;

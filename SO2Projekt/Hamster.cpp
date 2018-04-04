@@ -1,8 +1,9 @@
 #include "Hamster.h"
 
-Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table)
+Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut)
 {
-	unique_lock<mutex> locker(mu, defer_lock);
+	mu = &mut;
+	unique_lock<mutex> locker(*mu, defer_lock);
 	this->id = id;
 	this->x = x;
 	this->y = y;
@@ -18,7 +19,7 @@ bool Hamster::FillWithZeros()
 
 bool Hamster::Move(vector<vector<int>>& table)
 {
-	unique_lock<mutex> locker(mu, defer_lock);
+	unique_lock<mutex> locker(*mu, defer_lock);
 
 	int direction = rand() % 4;
 
@@ -64,7 +65,7 @@ bool Hamster::Move(vector<vector<int>>& table)
 
 void Hamster::MoveCount(int count, vector<vector<int>>& table)
 {
-	unique_lock<mutex> locker(mu, defer_lock);
+	unique_lock<mutex> locker(*mu, defer_lock);
 	for (int i = 0; i < count; i++)
 	{
 		locker.lock();
@@ -77,6 +78,9 @@ void Hamster::MoveCount(int count, vector<vector<int>>& table)
 			}
 			cout << endl;
 		}
+		cout << endl;
+		cout << id << endl;
+		cout << endl;
 		locker.unlock();
 	}
 }
