@@ -1,9 +1,8 @@
 #include "Hamster.h"
 
-Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut)
+Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table)
 {
-	mu01 = &mut;
-	unique_lock<mutex> locker(*mu01, defer_lock);
+	unique_lock<mutex> locker(mu, defer_lock);
 	this->id = id;
 	this->x = x;
 	this->y = y;
@@ -14,25 +13,12 @@ Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut)
 
 bool Hamster::FillWithZeros()
 {
-	/**table = new int[5];
-	for (int i = 0; i < 5; i++)
-	{
-		table[i] = new int[5];
-		fill(table[i], table[i] + 5, 0);
-	}*/
-	/*for (int i = 0; i < 5; i++)
-	{
-		for (int j =0; j < 5; j++)
-		{
-			table[i][j] = 0;
-		}
-	}*/
 	return false;
 }
 
 bool Hamster::Move(vector<vector<int>>& table)
 {
-	unique_lock<mutex> locker(*mu01, defer_lock);
+	unique_lock<mutex> locker(mu, defer_lock);
 
 	int direction = rand() % 4;
 
@@ -74,6 +60,25 @@ bool Hamster::Move(vector<vector<int>>& table)
 	}
 
 	return true;
+}
+
+void Hamster::MoveCount(int count, vector<vector<int>>& table)
+{
+	unique_lock<mutex> locker(mu, defer_lock);
+	for (int i = 0; i < count; i++)
+	{
+		locker.lock();
+		Move(table);
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				cout << table[i][j] << " ";
+			}
+			cout << endl;
+		}
+		locker.unlock();
+	}
 }
 
 

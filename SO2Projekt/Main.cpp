@@ -11,11 +11,10 @@ int main()
 
 	std::cout << "SO2Projekt starting." << std::endl;
 
-	mutex mu;
 	vector<vector<int>> table(5, vector<int>(5, 0));
 
-	Hamster hamster(2, 3, 5, table, mu);
-	Hamster hamster2(3, 2, 6, table, mu);
+	Hamster hamster(2, 3, 5, table);
+	Hamster hamster2(3, 2, 6, table);
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -28,6 +27,14 @@ int main()
 
 	cout << endl;
 	cout << endl;
+
+	thread t1(&Hamster::MoveCount, &hamster, 10, table);
+	thread t2(&Hamster::MoveCount, &hamster2, 10, table);
+	
+	for (int i = 0; i < 10; i++)
+	{
+		
+	}
 
 	hamster.Move(table);
 	hamster2.Move(table);

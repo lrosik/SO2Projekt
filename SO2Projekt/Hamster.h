@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <thread>
 #include <mutex>
 #include <vector>
@@ -9,12 +10,13 @@ class Hamster
 {
 	static const int size = 5;
 	static once_flag flag_01;
+	mutex mu;
 	int id, x, y;
 public:
-	mutex* mu01 = nullptr;
-	Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut);
+	Hamster(int x, int y, int id, vector<vector<int>>& table);
 	bool FillWithZeros();
 	bool Move(vector<vector<int>>& table);
+	void MoveCount(int count, vector<vector<int>>& table);
 	~Hamster();
 };
 
