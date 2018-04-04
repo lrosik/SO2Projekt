@@ -1,7 +1,4 @@
-//#include "stdafx.h"
 #include "Hamster.h"
-
-
 
 Hamster::Hamster(int x, int y, int id)
 {
@@ -10,12 +7,14 @@ Hamster::Hamster(int x, int y, int id)
 	this->x = x;
 	this->y = y;
 	locker.lock();
-	table[y][x] = id;
+	FillWithZeros();
+	table[x][y] = id;
 	locker.unlock();
 }
 
-bool Hamster::FillWithZeros(int i)
+bool Hamster::FillWithZeros()
 {
+	table = new vector<vector<int>>(5, vector<int>(5, 0));
 	return false;
 }
 
@@ -25,7 +24,7 @@ bool Hamster::Move()
 	if (x > size / 2)
 	{
 		locker.lock();
-		if(table)
+		//if(table)
 	}
 	return true;
 }
