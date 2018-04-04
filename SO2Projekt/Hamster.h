@@ -14,7 +14,7 @@ public:
 	mutex* mu01 = nullptr;
 	Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut);
 	bool FillWithZeros();
-	bool Move();
+	bool Move(vector<vector<int>>& table);
 	~Hamster();
 };
 

@@ -1,9 +1,14 @@
 #include <iostream>
+#include <time.h>
 #include <thread>
 #include "Hamster.h"
 
+using namespace std;
+
 int main() 
 {
+	srand(time(NULL));
+
 	std::cout << "SO2Projekt starting." << std::endl;
 
 	mutex mu;
@@ -20,7 +25,21 @@ int main()
 		}
 		cout << endl;
 	}
+
+	cout << endl;
+	cout << endl;
+
+	hamster.Move(table);
+	hamster2.Move(table);
 	
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			cout << table[i][j] << " ";
+		}
+		cout << endl;
+	}
 
 	system("PAUSE");
 	return 0;

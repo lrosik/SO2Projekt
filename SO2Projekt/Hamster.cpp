@@ -30,14 +30,49 @@ bool Hamster::FillWithZeros()
 	return false;
 }
 
-bool Hamster::Move()
+bool Hamster::Move(vector<vector<int>>& table)
 {
 	unique_lock<mutex> locker(*mu01, defer_lock);
-	if (x > size / 2)
+
+	int direction = rand() % 4;
+
+	if (direction == 0)
 	{
-		locker.lock();
-		//if(table)
+		if (x < 4)
+		{
+			table[x][y] = 0;
+			x++;
+			table[x][y] = id;
+		}
 	}
+	else if (direction == 1)
+	{
+		if (y > 0)
+		{
+			table[x][y] = 0;
+			y--;
+			table[x][y] = id;
+		}
+	}
+	else if (direction == 2)
+	{
+		if (x > 0)
+		{
+			table[x][y] = 0;
+			x--;
+			table[x][y] = id;
+		}
+	}
+	else if (direction == 3)
+	{
+		if (y < 4)
+		{
+			table[x][y] = 0;
+			y++;
+			table[x][y] = id;
+		}
+	}
+
 	return true;
 }
 
