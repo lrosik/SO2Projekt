@@ -1,8 +1,9 @@
 #include "Hamster.h"
 
-Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut)
+Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition)
 {
 	mu = &mut;
+	cond = &condition;
 	unique_lock<mutex> locker(*mu, defer_lock);
 	this->id = id;
 	this->x = x;
@@ -25,7 +26,7 @@ bool Hamster::Move(vector<vector<int>>& table)
 
 	if (direction == 0)
 	{
-		if (x < 4)
+		if (x < 4 && table[x+1][y] == 0)
 		{
 			table[x][y] = 0;
 			x++;
@@ -34,7 +35,7 @@ bool Hamster::Move(vector<vector<int>>& table)
 	}
 	else if (direction == 1)
 	{
-		if (y > 0)
+		if (y > 0 && table[x][y-1] == 0)
 		{
 			table[x][y] = 0;
 			y--;
@@ -43,7 +44,7 @@ bool Hamster::Move(vector<vector<int>>& table)
 	}
 	else if (direction == 2)
 	{
-		if (x > 0)
+		if (x > 0 && table[x - 1][y] == 0)
 		{
 			table[x][y] = 0;
 			x--;
@@ -52,7 +53,7 @@ bool Hamster::Move(vector<vector<int>>& table)
 	}
 	else if (direction == 3)
 	{
-		if (y < 4)
+		if (y < 4 && table[x][y+1] == 0)
 		{
 			table[x][y] = 0;
 			y++;
@@ -68,8 +69,9 @@ void Hamster::MoveCount(int count, vector<vector<int>>& table)
 	unique_lock<mutex> locker(*mu, defer_lock);
 	for (int i = 0; i < count; i++)
 	{
-		this_thread::sleep_for(chrono::milliseconds(500));
+		//this_thread::sleep_for(chrono::milliseconds(500));
 		locker.lock();
+		cond->wait(locker);
 		Move(table);
 		for (int i = 0; i < 5; i++)
 		{
@@ -83,6 +85,7 @@ void Hamster::MoveCount(int count, vector<vector<int>>& table)
 		cout << id << endl;
 		cout << endl;
 		locker.unlock();
+		cond->notify_one();
 	}
 }
 
