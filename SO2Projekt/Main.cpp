@@ -32,10 +32,10 @@ int main()
 	thread t1(&Hamster::MoveCount, &hamster, 10, table);
 	thread t2(&Hamster::MoveCount, &hamster2, 10, table);
 	
-	for (int i = 0; i < 10; i++)
+	/*for (int i = 0; i < 10; i++)
 	{
 		
-	}
+	}*/
 
 	//hamster.Move(table);
 	//hamster2.Move(table);

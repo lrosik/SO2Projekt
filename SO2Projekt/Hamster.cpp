@@ -68,7 +68,7 @@ void Hamster::MoveCount(int count, vector<vector<int>>& table)
 	unique_lock<mutex> locker(*mu, defer_lock);
 	for (int i = 0; i < count; i++)
 	{
-		//this_thread::sleep_for(chrono::microseconds(1));
+		this_thread::sleep_for(chrono::milliseconds(500));
 		locker.lock();
 		Move(table);
 		for (int i = 0; i < 5; i++)
