@@ -10,6 +10,11 @@ class TableForHamster
 	vector<int> dataOfHamster;
 public:
 	TableForHamster(vector<int> data_of_hamster);
+	int GetID();
+	bool SetID(int ID);
+	int GetLvl();
+	bool SetLvl(int ID);
+	bool LvlUP();
 	bool Print_table();
 	~TableForHamster();
 };

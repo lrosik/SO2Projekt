@@ -19,7 +19,9 @@ public:
 	Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>& table, mutex& mut, condition_variable& condition);
 	bool FillWithZeros();
 	bool Move(vector<vector<int>>& table);
+	bool MoveOnNewTable(vector<vector<TableForHamster>>& table);
 	void MoveCount(int count, vector<vector<int>>& table);
+	void NewMoveCount(int count, vector<vector<TableForHamster>>& table);
 	~Hamster();
 };
 

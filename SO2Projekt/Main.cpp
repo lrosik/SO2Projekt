@@ -14,7 +14,7 @@ int main()
 
 	mutex mut;
 	condition_variable cond;
-	struct hamsterInTheTable
+	/*struct hamsterInTheTable
 	{
 		vector<int> datOfHamster;
 		hamsterInTheTable(vector<int> data_of_hamster)
@@ -26,33 +26,35 @@ int main()
 			cout << datOfHamster.size() << endl;
 			return true;
 		}
-	};
+	};*/
 	vector<vector<TableForHamster>> table_of_hamsters(5, vector<TableForHamster>(5, vector<int>(2, 0)));
 	//vector<vector<hamsterInTheTable>> table_of_hamsters(5, vector<hamsterInTheTable>(5, vector<int>(2,0)));
 	table_of_hamsters[0][0].Print_table();
-	vector<vector<int>> table(5, vector<int>(5, 0));
+	//vector<vector<int>> table(5, vector<int>(5, 0));
 
-	Hamster hamster(2, 3, 5, table, mut, cond);
-	Hamster hamster2(1, 2, 6, table, mut, cond);
-	Hamster hamster3(0, 0, 7, table, mut, cond);
+	Hamster hamster(1, 2, 3, 5, table_of_hamsters, mut, cond);
+	Hamster hamster2(1, 1, 2, 6, table_of_hamsters, mut, cond);
+	Hamster hamster3(1, 0, 0, 7, table_of_hamsters, mut, cond);
 	//Hamster hamster4(0, 1, 8, table, mut, cond);
 	//Hamster hamster5(1, 0, 9, table, mut, cond);
 
-	for (int i = 0; i < 5; i++)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			cout << table[i][j] << " ";
-		}
-		cout << endl;
-	}
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	for (int j = 0; j < 5; j++)
+	//	{
+	//		table_of_hamsters[i][j].Print_table();
+	//		cout << " ";
+	//		//cout << table[i][j] << " ";
+	//	}
+	//	cout << endl;
+	//}
 
 	cout << endl;
 	cout << endl;
 
-	thread t1(&Hamster::MoveCount, &hamster, 10, table);
-	thread t2(&Hamster::MoveCount, &hamster2, 10, table);
-	thread t3(&Hamster::MoveCount, &hamster3, 10, table);
+	thread t1(&Hamster::NewMoveCount, &hamster, 10, table_of_hamsters);
+	thread t2(&Hamster::NewMoveCount, &hamster2, 10, table_of_hamsters);
+	thread t3(&Hamster::NewMoveCount, &hamster3, 10, table_of_hamsters);
 	cond.notify_one();
 	/*for (int i = 0; i < 10; i++)
 	{
