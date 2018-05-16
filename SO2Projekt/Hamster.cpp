@@ -11,7 +11,7 @@ Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, c
 	this->y = y;
 	locker.lock();
 	table[x][y] = id;
-	this->threads = threads;
+	this->threads = &threads;
 	locker.unlock();
 }
 
@@ -26,7 +26,7 @@ Hamster::Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>&
 	this->y = y;
 	locker.lock();
 	table[x][y] = TableForHamster({ id,lvl });
-	this->threads = threads;
+	this->threads = &threads;
 	locker.unlock();
 }
 
@@ -184,16 +184,22 @@ void Hamster::NewMoveCount(int count, vector<vector<TableForHamster>>& table)
 bool Hamster::KillHamsta(int ID)
 {
 	int i = 0;
-	while (i < threads.size())
+	while (i < threads->size())
 	{
-		if (threads[i].get_id == i)
+		/*if (threads[i].get_id() == i)
 		{
 			threads[i].~thread();
 			return true;
-		}
+		}*/
 		i++;
 	}
 	return false;
+}
+
+bool Hamster::SetId(int ID)
+{
+	this->id = ID;
+	return true;
 }
 
 

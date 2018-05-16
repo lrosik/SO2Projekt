@@ -29,7 +29,6 @@ int main()
 	};*/
 	vector<vector<TableForHamster>> table_of_hamsters(5, vector<TableForHamster>(5, vector<int>(2, 0)));
 	//vector<vector<hamsterInTheTable>> table_of_hamsters(5, vector<hamsterInTheTable>(5, vector<int>(2,0)));
-	table_of_hamsters[0][0].Print_table();
 	//vector<vector<int>> table(5, vector<int>(5, 0));
 	vector<thread> threads;
 	Hamster hamster(1, 2, 3, 5, table_of_hamsters, mut, cond, threads);
@@ -53,11 +52,11 @@ int main()
 	cout << endl;
 
 	thread t1(&Hamster::NewMoveCount, &hamster, 10, table_of_hamsters);
-	thread t2(&Hamster::NewMoveCount, &hamster2, 12, table_of_hamsters);
+	thread t2(&Hamster::NewMoveCount, &hamster2, 10, table_of_hamsters);
 	thread t3(&Hamster::NewMoveCount, &hamster3, 10, table_of_hamsters);
-	threads.push_back(t1);
-	threads.push_back(t2);
-	threads.push_back(t3);
+	//threads.push_back(t1);
+	//threads.push_back(t2);
+	//threads.push_back(t3);
 	cond.notify_one();
 	/*for (int i = 0; i < 10; i++)
 	{
