@@ -19,6 +19,7 @@ class Hamster
 	vector<thread> *threads;
 	vector<vector<TableForHamster>> *table;
 public:
+	static int number_of_hamsters ;
 	Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition, vector<thread>& threads);
 	Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>& tableH, mutex& mut, condition_variable& condition, vector<thread>& threads);
 	bool FillWithZeros();

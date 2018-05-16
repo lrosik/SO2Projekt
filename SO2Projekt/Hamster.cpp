@@ -1,6 +1,7 @@
 #include "Hamster.h"
 #include "TableForHamster.h"
 
+int Hamster::number_of_hamsters = 5;
 Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition, vector<thread>& threads)
 {
 	mu = &mut;
@@ -225,11 +226,13 @@ void Hamster::NewMoveCount(int count)
 		}
 		cout << endl;
 		cout << id << endl;
+		cout << number_of_hamsters << endl;
 		cout << endl;
-		this_thread::sleep_for(chrono::milliseconds(2000));
+		this_thread::sleep_for(chrono::milliseconds(200));
 		locker.unlock();
 		cond->notify_one();
 	}
+	Die();
 	cond->notify_one();
 }
 
@@ -257,6 +260,7 @@ bool Hamster::SetId(int ID)
 bool Hamster::Die()
 {
 	this->isLiving = false;
+	number_of_hamsters -= 1;
 	return true;
 }
 
