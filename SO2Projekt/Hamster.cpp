@@ -1,7 +1,7 @@
 #include "Hamster.h"
 #include "TableForHamster.h"
 
-Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition)
+Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition, vector<thread>& threads)
 {
 	mu = &mut;
 	cond = &condition;
@@ -11,10 +11,11 @@ Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, c
 	this->y = y;
 	locker.lock();
 	table[x][y] = id;
+	this->threads = threads;
 	locker.unlock();
 }
 
-Hamster::Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>& table, mutex& mut, condition_variable& condition)
+Hamster::Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>& table, mutex& mut, condition_variable& condition, vector<thread>& threads)
 {
 	mu = &mut;
 	cond = &condition;
@@ -25,6 +26,7 @@ Hamster::Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>&
 	this->y = y;
 	locker.lock();
 	table[x][y] = TableForHamster({ id,lvl });
+	this->threads = threads;
 	locker.unlock();
 }
 
@@ -177,6 +179,21 @@ void Hamster::NewMoveCount(int count, vector<vector<TableForHamster>>& table)
 		cond->notify_one();
 	}
 	cond->notify_one();
+}
+
+bool Hamster::KillHamsta(int ID)
+{
+	int i = 0;
+	while (i < threads.size())
+	{
+		if (threads[i].get_id == i)
+		{
+			threads[i].~thread();
+			return true;
+		}
+		i++;
+	}
+	return false;
 }
 
 

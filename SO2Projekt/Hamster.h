@@ -14,14 +14,16 @@ class Hamster
 	mutex *mu;
 	condition_variable *cond;
 	int id, x, y, lvl;
+	vector<thread> threads;
 public:
-	Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition);
-	Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>& table, mutex& mut, condition_variable& condition);
+	Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition, vector<thread>& threads);
+	Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>& table, mutex& mut, condition_variable& condition, vector<thread>& threads);
 	bool FillWithZeros();
 	bool Move(vector<vector<int>>& table);
 	bool MoveOnNewTable(vector<vector<TableForHamster>>& table);
 	void MoveCount(int count, vector<vector<int>>& table);
 	void NewMoveCount(int count, vector<vector<TableForHamster>>& table);
+	bool KillHamsta(int ID);
 	~Hamster();
 };
 
