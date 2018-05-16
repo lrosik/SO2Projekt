@@ -87,6 +87,7 @@ void Hamster::MoveCount(int count, vector<vector<int>>& table)
 		locker.unlock();
 		cond->notify_one();
 	}
+	cond->notify_one();
 }
 
 
