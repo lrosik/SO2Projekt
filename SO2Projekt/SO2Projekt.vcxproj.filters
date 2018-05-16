@@ -21,9 +21,15 @@
     <ClCompile Include="Hamster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TableForHamster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hamster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TableForHamster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

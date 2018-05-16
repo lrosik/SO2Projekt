@@ -1,4 +1,5 @@
 #include "Hamster.h"
+#include "TableForHamster.h"
 
 Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, condition_variable& condition)
 {
@@ -10,6 +11,20 @@ Hamster::Hamster(int x, int y, int id, vector<vector<int>>& table, mutex& mut, c
 	this->y = y;
 	locker.lock();
 	table[x][y] = id;
+	locker.unlock();
+}
+
+Hamster::Hamster(int lvl, int x, int y, int id, vector<vector<TableForHamster>>& table, mutex& mut, condition_variable& condition)
+{
+	mu = &mut;
+	cond = &condition;
+	unique_lock<mutex> locker(*mu, defer_lock);
+	this->lvl = lvl;
+	this->id = id;
+	this->x = x;
+	this->y = y;
+	locker.lock();
+	table[x][y] = TableForHamster({ id,lvl });
 	locker.unlock();
 }
 
