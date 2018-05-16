@@ -202,6 +202,12 @@ bool Hamster::SetId(int ID)
 	return true;
 }
 
+bool Hamster::Die()
+{
+	this->isLiving = false;
+	return true;
+}
+
 
 Hamster::~Hamster()
 {
