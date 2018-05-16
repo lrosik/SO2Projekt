@@ -124,14 +124,13 @@ int main()
 		}
 		cout << endl;
 	}*/
-	//Dajciemijuzspokoj.join();
 	threads1[0].join();
 	threads1[1].join();
 	threads1[2].join();
 	threads1[3].join();
 	threads1[4].join();
 	//Dajciemijuzspokoj.detach();
-	//Dajciemijuzspokoj.join();
+	Dajciemijuzspokoj.join();
 	system("PAUSE");
 	return 0;
 }
